@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikhil Mathew Francis — Full Stack Developer</title>
+<meta name="description" content="Full Stack Developer specializing in Java, Spring Boot, AWS Lambda, DynamoDB, and Next.js micro-frontends. Building multi-tenant SaaS at Cognizant.">
+<meta name="keywords" content="Full Stack Developer, Java, Spring Boot, AWS, DynamoDB, Next.js, Micro-frontends, Cognizant, Kochi">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0e1a;
+    --bg-2: #0f1626;
+    --bg-3: #1a2238;
+    --text: #e4e7ec;
+    --text-dim: #8b95a5;
+    --accent: #4f8cff;
+    --accent-2: #7c5cff;
+    --accent-glow: rgba(79, 140, 255, 0.15);
+    --border: rgba(255, 255, 255, 0.08);
+    --card: rgba(255, 255, 255, 0.03);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(circle at 20% 0%, var(--accent-glow), transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(124, 92, 255, 0.08), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+  code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10, 14, 26, 0.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 14px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo { font-weight: 700; font-size: 16px; color: var(--text); text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    color: var(--text-dim); text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  @media (max-width: 640px) { .nav-links { display: none; } }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center; padding: 80px 0;
+  }
+  .hero-inner { max-width: 800px; }
+  .hero-greeting {
+    color: var(--accent); font-family: 'JetBrains Mono', monospace;
+    font-size: 15px; margin-bottom: 16px; letter-spacing: 0.5px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 68px); font-weight: 800; line-height: 1.05;
+    margin-bottom: 12px; letter-spacing: -0.02em;
+  }
+  .hero h2 {
+    font-size: clamp(24px, 3.5vw, 38px); font-weight: 600; color: var(--text-dim);
+    margin-bottom: 28px; letter-spacing: -0.01em;
+  }
+  .hero h2 .highlight {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 18px; color: var(--text-dim); max-width: 640px; margin-bottom: 36px;
+  }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    padding: 13px 26px; border-radius: 8px; font-weight: 600; font-size: 14px;
+    text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--accent); color: white;
+  }
+  .btn-primary:hover { background: #6ba0ff; transform: translateY(-2px); }
+  .btn-secondary {
+    background: transparent; color: var(--text); border-color: var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* SECTIONS */
+  section { padding: 90px 0; position: relative; }
+  .section-label {
+    color: var(--accent); font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; margin-bottom: 10px; letter-spacing: 0.5px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 40px); font-weight: 700; margin-bottom: 40px;
+    letter-spacing: -0.02em;
+  }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 60px; align-items: start; }
+  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .about-text p { color: var(--text-dim); font-size: 16px; margin-bottom: 16px; }
+  .about-text strong { color: var(--text); font-weight: 600; }
+  .about-stats { display: flex; flex-direction: column; gap: 18px; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 22px; border-radius: 12px;
+  }
+  .stat-num {
+    font-size: 32px; font-weight: 800; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-label { color: var(--text-dim); font-size: 14px; margin-top: 4px; }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+  }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 24px; border-radius: 12px; transition: all 0.2s;
+  }
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .skill-card h3 {
+    font-size: 16px; font-weight: 600; color: var(--accent);
+    margin-bottom: 14px; font-family: 'JetBrains Mono', monospace;
+  }
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    background: rgba(79, 140, 255, 0.08); color: var(--text);
+    padding: 5px 11px; border-radius: 6px; font-size: 12px; font-weight: 500;
+    border: 1px solid var(--border);
+  }
+
+  /* PROJECTS */
+  .project {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 36px; margin-bottom: 28px;
+    transition: all 0.2s;
+  }
+  .project:hover { border-color: rgba(79, 140, 255, 0.3); }
+  .project-header {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;
+    margin-bottom: 8px; flex-wrap: wrap;
+  }
+  .project h3 { font-size: 24px; font-weight: 700; color: var(--text); }
+  .project-tag {
+    background: rgba(124, 92, 255, 0.15); color: #a899ff;
+    padding: 4px 10px; border-radius: 6px; font-size: 11px;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .project-subtitle {
+    color: var(--accent); font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; margin-bottom: 18px;
+  }
+  .project p { color: var(--text-dim); margin-bottom: 18px; }
+  .project-highlights { list-style: none; margin-bottom: 20px; }
+  .project-highlights li {
+    color: var(--text-dim); margin-bottom: 8px; padding-left: 22px; position: relative;
+  }
+  .project-highlights li::before {
+    content: '▸'; color: var(--accent); position: absolute; left: 0; font-weight: 700;
+  }
+  .project-highlights strong { color: var(--text); font-weight: 600; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  /* EXPERIENCE */
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 12px; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 36px; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -34px; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .timeline-date {
+    color: var(--accent); font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; margin-bottom: 4px;
+  }
+  .timeline-title { font-size: 19px; font-weight: 600; margin-bottom: 4px; }
+  .timeline-company { color: var(--text-dim); font-size: 15px; margin-bottom: 12px; }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px; margin-top: 30px;
+  }
+  .contact-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 24px; border-radius: 12px; text-decoration: none;
+    color: var(--text); transition: all 0.2s; text-align: center;
+  }
+  .contact-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .contact-card .label {
+    color: var(--text-dim); font-size: 13px; margin-bottom: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .contact-card .value { font-size: 15px; font-weight: 600; word-break: break-word; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border); padding: 28px 0;
+    text-align: center; color: var(--text-dim); font-size: 14px;
+  }
+  footer .built-with { font-family: 'JetBrains Mono', monospace; font-size: 12px; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">nikhil<span>.dev</span></a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-greeting">Hi, my name is</div>
+      <h1>Nikhil Mathew Francis.</h1>
+      <h2>I build <span class="highlight">scalable systems</span> on the cloud.</h2>
+      <p>
+        Full Stack Developer with 3+ years at Cognizant, building a production multi-tenant
+        enterprise LMS using <strong>Java 17, Spring Boot 3, AWS Lambda, DynamoDB</strong>, and
+        <strong>Next.js micro-frontends</strong>. Actively leveraging <strong>Claude and Copilot</strong> to ship more scalable features faster with heightened productivity and code quality. Currently exploring opportunities to work on high-scale systems as a Full Stack / Product Engineer.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View My Work →</a>
+        <a href="mailto:nikhilmathewfrancis@gmail.com" class="btn btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <h2 class="section-title">A bit about me</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a Full Stack Developer at <strong>Cognizant Technology Solutions</strong>, currently
+          part of the <strong>SkillSpring</strong> team — an internal multi-tenant enterprise
+          Learning Management System replacing third-party tools like Udemy for Business.
+        </p>
+        <p>
+          I work across the full stack — designing event-driven microservices on
+          <strong>AWS Lambda</strong> with <strong>EventBridge</strong> and <strong>SQS</strong>,
+          modeling NoSQL data on <strong>DynamoDB</strong> with GSIs and composite partition keys
+          for multi-tenant isolation, and building <strong>Next.js micro-frontends</strong>
+          deployed via Module Federation. I actively use <strong>Claude and Copilot</strong> to accelerate development,
+          shipping more scalable features with greater velocity and code quality.
+        </p>
+        <p>
+          Outside of work, I'm building an Android app using <strong>React Native</strong> and
+          <strong>Firebase Cloud Functions</strong>, and consistently practicing data structures
+          and system design. I have a strong foundation in <strong>OOP and Low-Level Design</strong>,
+          and care a lot about clean, maintainable code.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">8+</div>
+          <div class="stat-label">Microservices Shipped</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2-3×</div>
+          <div class="stat-label">Sprint Velocity (AI-assisted)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title">Tech I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Backend</h3>
+        <div class="skill-chips">
+          <span class="chip">Java 17</span>
+          <span class="chip">Spring Boot 3</span>
+          <span class="chip">Spring Security</span>
+          <span class="chip">REST APIs</span>
+          <span class="chip">Microservices</span>
+          <span class="chip">OAuth 2.0</span>
+          <span class="chip">JWT</span>
+          <span class="chip">JPA</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>AWS &amp; Cloud</h3>
+        <div class="skill-chips">
+          <span class="chip">Lambda</span>
+          <span class="chip">DynamoDB</span>
+          <span class="chip">EventBridge</span>
+          <span class="chip">SQS</span>
+          <span class="chip">S3</span>
+          <span class="chip">Cognito</span>
+          <span class="chip">SAM</span>
+          <span class="chip">CodeBuild</span>
+          <span class="chip">Bedrock</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Frontend</h3>
+        <div class="skill-chips">
+          <span class="chip">Next.js</span>
+          <span class="chip">React</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">Module Federation</span>
+          <span class="chip">Material UI v6</span>
+          <span class="chip">React Hook Form</span>
+          <span class="chip">MUI X DataGrid</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>DevOps &amp; Monitoring</h3>
+        <div class="skill-chips">
+          <span class="chip">AWS CodeBuild</span>
+          <span class="chip">SAM CLI</span>
+          <span class="chip">Docker</span>
+          <span class="chip">Terraform</span>
+          <span class="chip">Datadog APM</span>
+          <span class="chip">OpenTelemetry</span>
+          <span class="chip">Git</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Mobile (Personal)</h3>
+        <div class="skill-chips">
+          <span class="chip">React Native</span>
+          <span class="chip">Firebase</span>
+          <span class="chip">Cloud Functions</span>
+          <span class="chip">Firestore</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Concepts</h3>
+        <div class="skill-chips">
+          <span class="chip">Event-Driven Architecture</span>
+          <span class="chip">Multi-tenant SaaS</span>
+          <span class="chip">System Design</span>
+          <span class="chip">OOP / LLD</span>
+          <span class="chip">DSA</span>
+          <span class="chip">Agile</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title">Featured work</h2>
+
+    <div class="project">
+      <div class="project-header">
+        <div>
+          <h3>SkillSpring — Multi-tenant Enterprise LMS</h3>
+          <div class="project-subtitle">Cognizant Internal Product · Feb 2023 – Present</div>
+        </div>
+        <span class="project-tag">Production</span>
+      </div>
+      <p>
+        Internal enterprise Learning Management System replacing third-party tools like
+        Udemy for Business. Serves multiple business units across Cognizant on a fully
+        serverless AWS architecture with a micro-frontend UI.
+      </p>
+      <ul class="project-highlights">
+        <li><strong>Event-Driven Backend:</strong> 8+ Spring Boot 3 microservices on AWS Lambda, decoupled via Amazon EventBridge and SQS for cross-service orchestration.</li>
+        <li><strong>DynamoDB Modeling:</strong> Designed GSIs, composite partition keys for multi-tenant isolation, and paginated queries (lastEvaluatedKey) across 6+ tables.</li>
+        <li><strong>Performance:</strong> Caffeine in-memory caching (30-min TTL, 500-entry capacity) on high-traffic learner landing-page APIs to reduce DynamoDB read load.</li>
+        <li><strong>Micro-frontend:</strong> 3-app architecture via Module Federation (Next.js + @module-federation/nextjs-mf) — Admin and Learner portals deploy independently with shared auth from a host shell.</li>
+        <li><strong>Migration API:</strong> Paginated batch migration converting legacy course data into a new Assembly schema without downtime.</li>
+        <li><strong>Security:</strong> AWS Cognito + Spring Security with JWT/OAuth2 for multi-tenant RBAC across system admin, super admin, content author, and learner roles.</li>
+        <li><strong>Observability:</strong> Datadog APM + OpenTelemetry for distributed tracing across Lambda microservices.</li>
+        <li><strong>CI/CD:</strong> Multi-stage AWS CodeBuild pipelines with BlackDuck, Checkmarx, SonarQube, and Prisma Cloud security scans.</li>
+      </ul>
+      <div class="project-stack">
+        <span class="chip">Java 17</span>
+        <span class="chip">Spring Boot 3</span>
+        <span class="chip">AWS Lambda</span>
+        <span class="chip">DynamoDB</span>
+        <span class="chip">EventBridge</span>
+        <span class="chip">SQS</span>
+        <span class="chip">Cognito</span>
+        <span class="chip">Next.js</span>
+        <span class="chip">Module Federation</span>
+        <span class="chip">TypeScript</span>
+        <span class="chip">Datadog</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-header">
+        <div>
+          <h3>FoodVibe — Food Exploration Mobile App</h3>
+          <div class="project-subtitle">Personal Project · 2025 – Present</div>
+        </div>
+        <span class="project-tag">In Progress</span>
+      </div>
+      <p>
+        Cross-platform Android app for exploring and sharing food experiences. A "vibe coding" project
+        built with <strong>Cursor, Claude, and Copilot</strong> to rapidly prototype mobile development
+        and serverless Firebase architecture while maintaining clean, production-quality code.
+      </p>
+      <ul class="project-highlights">
+        <li>Native mobile UI built with <strong>React Native</strong> for Android — AI-assisted development with Cursor and Claude.</li>
+        <li><strong>Firebase Cloud Functions</strong> for serverless backend logic, webhooks, and real-time data sync.</li>
+        <li><strong>Firestore</strong> as a real-time NoSQL store for food posts, user interactions, and personalized feeds.</li>
+        <li>Leveraging <strong>AI development tools (Claude, Copilot)</strong> to ship features faster while exploring mobile + serverless architecture.</li>
+      </ul>
+      <div class="project-stack">
+        <span class="chip">React Native</span>
+        <span class="chip">Firebase</span>
+        <span class="chip">Cloud Functions</span>
+        <span class="chip">Firestore</span>
+        <span class="chip">Cursor</span>
+        <span class="chip">Claude</span>
+        <span class="chip">Copilot</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <h2 class="section-title">Where I've worked</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">Feb 2023 – Present</div>
+        <div class="timeline-title">Full Stack Developer</div>
+        <div class="timeline-company">Cognizant Technology Solutions · Kochi, India</div>
+        <p style="color: var(--text-dim); font-size: 15px;">
+          Building SkillSpring — a multi-tenant enterprise Learning Management System on AWS serverless.
+          Working across Java/Spring Boot microservices, DynamoDB, EventBridge, and Next.js micro-frontends.
+          Promoted recently in recognition of contributions to performance, architecture, and sprint velocity.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="container">
+    <h2 class="section-title">Education</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">Master of Computer Applications</div>
+        <div class="timeline-title">College of Engineering, Trivandrum</div>
+        <div class="timeline-company">CGPA: 8.28</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Bachelor of Computer Applications</div>
+        <div class="timeline-title">Michael's Institute of Management and Technology</div>
+        <div class="timeline-company">CGPA: 7.5</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title">Let's connect</h2>
+    <p style="color: var(--text-dim); max-width: 600px; font-size: 17px;">
+      I'm open to full-time Full Stack / Product Engineer roles where I can work on high-scale
+      systems and grow with strong engineers. Reach out through any of these:
+    </p>
+    <div class="contact-grid">
+      <a href="mailto:nikhilmathewfrancis@gmail.com" class="contact-card">
+        <div class="label">Email</div>
+        <div class="value">nikhilmathewfrancis@gmail.com</div>
+      </a>
+      <a href="tel:+917012194892" class="contact-card">
+        <div class="label">Phone</div>
+        <div class="value">+91 7012194892</div>
+      </a>
+      <a href="https://www.linkedin.com/in/nikhil-mathew-francis-896206161" class="contact-card" target="_blank" rel="noopener">
+        <div class="label">LinkedIn</div>
+        <div class="value">/nikhil-mathew-francis</div>
+      </a>
+      <a href="https://github.com/nikhilmathewfrancis98" class="contact-card" target="_blank" rel="noopener">
+        <div class="label">GitHub</div>
+        <div class="value">@nikhilmathewfrancis98</div>
+      </a>
+      <a href="https://leetcode.com/u/nikimath" class="contact-card" target="_blank" rel="noopener">
+        <div class="label">LeetCode</div>
+        <div class="value">@nikimath</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 Nikhil Mathew Francis · Built with care in Kochi, India</div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
